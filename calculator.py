@@ -3,18 +3,32 @@ import re
 
 
 def compute_calculation(input_str):
-    assert bool(re.search('[a-zA-Z]', input_str)) is False
+    """Computes prefix or infix calculation, depending on the notation of the input expression.
+    Also checks that the given input doesn't contain any alphabetical characters.
+    Args:
+        input_str (str): The input expression in string format
+    Returns:
+        res (float): The result of the prefix or infix calculation
+    """
+    assert bool(re.search('[a-zA-Z]', input_str)) is False, 'Only digits and operators +-*/() are allowed.'
 
-    if ')' in input_str:  # infix notation
+    if '(' in input_str or ')' in input_str:  # Infix notation
         res = infix_calc(input_str)
         print('Infix result: ', res)
-    else:  # prefix notation
+    else:  # Prefix notation
         res = prefix_calc(input_str)
         print('Prefix result:', res)
 
     return res
 
+
 def prefix_calc(prefix_str):
+    """Calculates an expression in prefix notation. E.g. + * 1 2 3 should return 5
+    Args:
+        prefix_str (str): The input in prefix notation
+    Returns:
+        (float): The result of the prefix calculation
+    """
     prefix_arr = prefix_str.split()
     prefix_arr.reverse()
 
@@ -34,10 +48,17 @@ def prefix_calc(prefix_str):
             res = eval(' '.join([left_num, curr, right_num]))
             stack.append(str(res))
 
-    return stack[0]
+    return float(stack[0])
 
 
 def infix_calc(infix_str):
+    """Calculates an expression in infix notation. E.g.  ( ( 1 * 2 ) + 3 ) should return 5
+    Args:
+        infix_str (str): The input in infix notation
+    Returns:
+        (float): The result of the infix calculation
+    """
+    assert infix_str.count('(') == infix_str.count(')'), 'Expression not correct. Ensure all parentheses are closed.'
     infix_arr = infix_str.replace(')', '').split()
 
     if not infix_arr:
@@ -55,7 +76,7 @@ def infix_calc(infix_str):
             res = eval(' '.join([left_num, operator, right_num]))
             stack.append(str(res))
 
-    return stack[0]
+    return float(stack[0])
 
 
 if __name__ == '__main__':
