@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prefix & Infix Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body>
+    <h2>Prefix & Infix Calculator</h2>
+    <form method="POST" action="/calculate">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Prefix or infix expression" name="expression"
+               aria-label="Prefix or infix expression" aria-describedby="button-calculate">
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" type="submit" id="button-calculate">Calculate</button>
+        </div>
+      </div>
+      <div class="result">{{ result }}</div>
+      <div class="error">{{ error }}</div>
+    </form>
+  </body>
+
+</html>
+
